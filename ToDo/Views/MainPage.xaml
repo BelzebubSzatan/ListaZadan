@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="ToDo.MainPage"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom">
+
+    <ContentPage Title="Zadania"
+                 IconImageSource="https://cdn-icons-png.flaticon.com/512/1950/1950715.png">
+        <StackLayout>
+            <FlexLayout JustifyContent="SpaceBetween"
+                        AlignItems="Center"
+                        HeightRequest="50">
+                <SearchBar Placeholder="Wpisz Tytul"
+                           x:Name="SearchBar"
+                           TextTransform="Lowercase"
+                           TextChanged="SearchBarTextChanged" />
+                <Button Text="Usun"
+                        BackgroundColor="Transparent"
+                        HeightRequest="50"
+                        Clicked="DeleteElement" />
+            </FlexLayout>
+            <ListView x:Name="List">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding Image}"
+                                   Text="{Binding Title}"
+                                   Detail="{Binding EndDateTime}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>
+
+
+
+    <ContentPage Title="Dodaj"
+                 IconImageSource="https://www.nicepng.com/png/full/251-2519428_0-add-icon-white-png.png">
+        <StackLayout Padding="10">
+            <Entry Placeholder="Tytul"
+                   HorizontalTextAlignment="Center"
+                   x:Name="Title"
+                   MaxLength="20" />
+            <DatePicker x:Name="Date" />
+            <TimePicker x:Name="Time" />
+            <Button Text="Dodaj"
+                    BackgroundColor="LightBlue"
+                    Clicked="AddTaks"
+                    x:Name="button" />
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>
