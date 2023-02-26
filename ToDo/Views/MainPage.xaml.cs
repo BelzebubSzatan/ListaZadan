@@ -10,7 +10,7 @@ using ToDo.INotificationManager;
 namespace ToDo {
     public partial class MainPage : TabbedPage {
         ObservableCollection<ToDoModel> Elements = new ObservableCollection<ToDoModel>();
-        public static string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "file.json");
+        public static string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "cos.json");
         INotification NotificationMenager;
         public MainPage() {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace ToDo {
                 NotificationMenager.SendNotification("Konczy sie czas na wykonianie zadania", Title.Text, Date.Date + Time.Time);
                 WriteToFile();
             } else
-                DisplayAlert("Taki tytul juz istnieje", "123", "123");
+                DisplayAlert("Taki tytul juz istnieje", "", "Powrót");
         }
 
         public void WriteToFile() {
@@ -58,8 +58,12 @@ namespace ToDo {
         }
 
         public void ReadFromFile() {
-            string result = File.ReadAllText(fileName);
-            Elements = JsonConvert.DeserializeObject<ObservableCollection<ToDoModel>>(result);
+            if (File.Exists(fileName)) {
+                string result = File.ReadAllText(fileName);
+                Elements = JsonConvert.DeserializeObject<ObservableCollection<ToDoModel>>(result);
+            }
+            else
+                File.WriteAllText(fileName,"");
         }
 
         private void DeleteElement(object sender, EventArgs e) {
